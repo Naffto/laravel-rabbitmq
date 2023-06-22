@@ -192,7 +192,7 @@ class QueueEntity implements PublisherInterface, ConsumerInterface, AMQPEntityIn
                     $this->attributes['exclusive'],
                     $this->attributes['auto_delete'],
                     $this->attributes['nowait'],
-                    $this->attributes['arguments']
+                    $this->attributes['arguments'] instanceof  \PhpAmqpLib\Wire\AMQPTable ? $this->attributes['arguments'] : new \PhpAmqpLib\Wire\AMQPTable($this->attributes['arguments'])
                 );
         } catch (AMQPProtocolChannelException $e) {
             // 406 is a soft error triggered for precondition failure (when redeclaring with different parameters)
